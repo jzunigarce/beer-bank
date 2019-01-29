@@ -21,12 +21,15 @@ export default {
     },
     methods: {
         loadBeers () {
-            beerApi.getAll()
+            beerApi.paginate(1)
             .then(beers => {
-                this.beers = beers
+                this.beers = beers.map(beer => {
+                    beer.favorite = false
+                    return beer
+                })
             })
             .catch(error => {
-                console.log(error)
+                alert(error)
             })
         }
     },
@@ -44,5 +47,15 @@ export default {
         grid-auto-rows: 1fr;
         grid-row-gap: 20px;
         justify-content: center;
+    }
+    @media screen and (max-width: 991px) {
+        .beer-list {
+            grid-template-columns: repeat(2, 350px);
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .beer-list {
+            grid-template-columns: repeat(1, 1fr);
+        }
     }
 </style>
