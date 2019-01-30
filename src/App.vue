@@ -32,30 +32,7 @@
 </template>
 
 <style>
-body {
-    background-color: #f8f8f8;
-}
-.main-header {
-    background-color: #f39301;
-}
-.main-header nav li {
-    padding: 0.5em
-}
-.main-header nav li a{
-    color: white;
-    display: inline-block;
-    text-transform: uppercase;
-    padding: 0
-}
-.title h1 {
-    font-weight: 800;
-}
-.main-header .search {
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-}
-.content {
-    padding-top: 50px;
-}
+@import '../node_modules/bootstrap/dist/css/bootstrap.css';
+@import '../node_modules/bootstrap-vue/dist/bootstrap-vue.css';
+@import 'assets/css/style.css';
 </style>

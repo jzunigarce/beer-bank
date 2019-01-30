@@ -1,0 +1,109 @@
+body {
+    background-color: #f8f8f8;
+}
+.main-header {
+    background-color: #f39301;
+}
+.main-header nav li {
+    padding: 0.5em
+}
+.main-header nav li a{
+    color: white;
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 0
+}
+.title h1 {
+    font-weight: 800;
+}
+.main-header .search {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+.content {
+    padding-top: 50px;
+}
+.beer-list {
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    grid-column-gap: 20px;
+    grid-auto-rows: 1fr;
+    grid-row-gap: 20px;
+    justify-content: center;
+}
+.beer-name {
+    color: #f39301;
+    margin-top: 5px;
+    text-align: center
+}
+.beer-tag {
+    color: #b7b7b7;
+    font-size: 0.9em;
+    text-align: center;
+}
+.beer-card {
+    background-color: #ffffff;
+    border-radius: 3px;
+    box-shadow: -1px 2px 20px 0px rgba(0, 0, 0, 0.07), 1px 4px 7px rgba(0, 0, 0, 0.06);
+    min-height: 230px;
+    padding: 10px;
+    position: relative;
+    transition: all .2s ease-in-out;
+}
+.beer-card:hover {
+    box-shadow: -1px 2px 20px 6px rgba(0, 0, 0, 0.07), 1px 4px 7px 4px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transform: scale(1.05);
+}
+.beer-img {
+    display: flex;
+    justify-content: center;
+}
+.beer-img img {
+    height: 100px;
+}
+.beer-favourite {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.beer-name {
+    color: #f39301;
+    margin-top: 5px;
+    text-align: center
+}
+.beer-tag {
+    color: #b7b7b7;
+    font-size: 0.9em;
+    text-align: center;
+}
+.favorite {
+    color: #f39301;
+}
+.modal-header {
+    border: none;
+    padding: 1em 1em 0;
+}
+.modal-body {
+    padding: 0 1em;
+}
+@media screen and (max-width: 991px) {
+    .beer-list {
+        grid-template-columns: repeat(2, 350px);
+    }
+    .beer-card {
+        min-height: 300px;
+    }
+    .beer-img img {
+        height: 150px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .beer-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .beer-img img {
+        height: 170px;
+    }
+}

@@ -1,6 +1,16 @@
 <template>
     <section class="beer-list">
-        <beer-card v-for="beer in beers" :key="beer.id" :beer="beer"></beer-card>
+        <beer-card v-for="beer in beers" :key="beer.id" :beer="beer" @showModal="showModal"></beer-card>
+        <b-modal id="modalBeer" ref="modalBeer">
+            <template v-if="beerDetail">
+                 <div class="beer-name">
+                    <strong>{{ beerDetail.name }}</strong>
+                </div>
+                <p class="beer-tag">
+                    {{ beerDetail.tagline }}
+                </p>
+            </template>
+        </b-modal>
     </section>
 </template>
 
@@ -16,7 +26,8 @@ export default {
     },
     data() {
         return {
-            beers: []
+            beers: [],
+            beerDetail: null,
         }
     },
     methods: {
@@ -31,6 +42,10 @@ export default {
             .catch(error => {
                 alert(error)
             })
+        },
+        showModal (beer) {
+            this.beerDetail = beer;
+            this.$refs.modalBeer.show()
         }
     },
     created() {
@@ -40,22 +55,5 @@ export default {
 </script>
 
 <style scoped>
-    .beer-list {
-        display: grid;
-        grid-template-columns: repeat(3, 200px);
-        grid-column-gap: 20px;
-        grid-auto-rows: 1fr;
-        grid-row-gap: 20px;
-        justify-content: center;
-    }
-    @media screen and (max-width: 991px) {
-        .beer-list {
-            grid-template-columns: repeat(2, 350px);
-        }
-    }
-    @media screen and (max-width: 767px) {
-        .beer-list {
-            grid-template-columns: repeat(1, 1fr);
-        }
-    }
+    
 </style>
