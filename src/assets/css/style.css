@@ -68,16 +68,6 @@ body {
     top: 5px;
     right: 5px;
 }
-.beer-name {
-    color: #f39301;
-    margin-top: 5px;
-    text-align: center
-}
-.beer-tag {
-    color: #b7b7b7;
-    font-size: 0.9em;
-    text-align: center;
-}
 .favorite {
     color: #f39301;
 }
@@ -87,6 +77,59 @@ body {
 }
 .modal-body {
     padding: 0 1em;
+}
+/*
+ * Detail beer modal
+ */
+.detail-beer .modal-body {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "image info"
+        "suggestion suggestion";
+        grid-column-gap: 10px;
+        grid-row-gap: 15px;
+}
+.detail-beer .modal-body  .detail-image {
+    grid-area: image;
+}
+.detail-beer .modal-body  .detail-image img {
+    height: 300px;
+}
+.detail-beer .modal-body .info {
+    color:  #8f9498;
+    font-size:13px;
+    grid-area: info;
+    text-align: left;
+}
+.detail-beer .modal-body .info .detail-name {
+    color: #f39301;
+    font-size: 1.6em;
+}
+.detail-beer .modal-body .suggestion {
+    grid-area: suggestion;
+    color: #f39301;
+    font-size: 1.2em;
+}
+.detail-beer .modal-body .suggestion .similar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.detail-beer .modal-body .suggestion .similar > div {
+    border: 1px solid #8f9498;
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    grid-row-gap: 10px;
+    justify-content: center;
+    padding-top: 20px;
+}
+.detail-beer .modal-body .suggestion .similar img {
+    height: 150px;
+}
+.detail-beer .modal-body .suggestion .similar strong {
+    color:  #8f9498;
+    text-align: center;
 }
 @media screen and (max-width: 991px) {
     .beer-list {
