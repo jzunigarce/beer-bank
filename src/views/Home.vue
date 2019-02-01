@@ -1,47 +1,7 @@
 <template>
     <section class="beer-list">
         <beer-card v-for="beer in beers" :key="beer.id" :beer="beer" @showModal="showModal"></beer-card>
-        <b-modal id="detailBeer" ref="detailBeer" class="detail-beer">
-            <template v-if="beerDetail">
-                <div class="detail-image">
-                    <img :src="beerDetail.image_url" alt="">
-                </div>
-                <div class="info">
-                    <div class="detail-name">
-                        <strong>{{ beerDetail.name }}</strong>
-                    </div>
-                    <p class="detail-tag">
-                        {{ beerDetail.tagline }}
-                    </p>
-                    <p class="detail-unity">
-                        <strong>IBU:</strong> {{ beerDetail.ibu }}%
-                        <strong>ABV:</strong> {{ beerDetail.abv }}%
-                        <strong>EBC:</strong> {{ beerDetail.ebc }}%
-                    </p>
-                    <p class="detail-description">
-                        {{ beerDetail.description }}
-                    </p>
-                    <p class="detail-food-pairing">
-                        <strong>Best served with</strong>
-                        <ul>
-                            <li v-for="food in beerDetail.food_pairing" :key="food">{{ food }}</li>
-                        </ul>
-                    </p>
-                </div>
-                <div class="suggestion">
-                    <strong>You might also like:</strong>
-                    <div class="similar">
-                        <div v-for="similar in beerDetail.similar" :key="similar[0].id">
-                            <img :src="similar[0].image_url" alt="">
-                            <strong>{{ similar[0].name }}</strong>
-                        </div>
-                    </div>
-                </div>
-            </template>
-            <div slot="modal-footer">
-
-            </div>
-        </b-modal>
+        <detail-beer :beer="detailBeer"></detail-beer>
     </section>
 </template>
 
@@ -49,24 +9,27 @@
 // @ is an alias to /src
 import beerApi from '@/services/Beer'
 import BeerCard from '@/components/BeerCard'
+import DetailBeer from '@/components/DetailBeer'
 
 export default {
     name: 'home',
     components: {
-        BeerCard
+        BeerCard,
+        DetailBeer,
     },
     data() {
         return {
             beers: [],
-            beerDetail: null,
+            detailBeer: null
         }
     },
     methods: {
         loadBeers () {
+            let vm = this
             beerApi.paginate(1)
             .then(beers => {
                 this.beers = beers.map(beer => {
-                    beer.favorite = false
+                    beer.favorite = vm.$exist(beer)
                     return beer
                 })
             })
@@ -75,13 +38,9 @@ export default {
             })
         },
         showModal (beer) {
-            this.beerDetail = beer;
-            this.beerDetail.similar = []
-            Promise.all([beerApi.random(), beerApi.random(), beerApi.random()])
-            .then(values => {
-                this.beerDetail.similar = values
-                this.$refs.detailBeer.show()
-            })
+            if(!beer.similar)
+                this.$set(beer, 'similar', [])
+            this.detailBeer = beer
         }
     },
     created() {

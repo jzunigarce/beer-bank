@@ -6,7 +6,7 @@
                     <nav>
                         <b-nav class="justify-content-end">
                             <b-nav-item class="nav-link" to="/">Home</b-nav-item>
-                            <b-nav-item class="nav-link" to="/about">Favourite</b-nav-item>
+                            <b-nav-item class="nav-link" to="/favorite">Favourite</b-nav-item>
                         </b-nav>
                     </nav>
                 </b-col>
