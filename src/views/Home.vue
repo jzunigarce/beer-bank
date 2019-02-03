@@ -21,12 +21,18 @@ export default {
     data() {
         return {
             detailBeer: null,
-            beers: [],
+            //beers: [],
+        }
+    },
+    computed: {
+        beers () {
+            return this.$store.getters.getBeers
         }
     },
     methods: {
-        fetchBeers (page) {
-            let vm = this
+       fetchBeers (page) {
+           this.$store.dispatch('fetchBeers', page)
+            /* let vm = this
             beerService.paginate(page)
             .then(beers => {
                 this.beers = beers.map(beer => {
@@ -36,7 +42,7 @@ export default {
             })
             .catch(error => {
                 alert(error)
-            })
+            }) */
         },
         showModal (beer) {
             if(!beer.similar)
@@ -45,7 +51,7 @@ export default {
         }
     },
     created() {
-        this.fetchBeers(1)
+        this.fetchBeers({page: 1})
     }
 };
 </script>

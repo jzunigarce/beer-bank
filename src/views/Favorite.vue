@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import favoriteBeerService from '@/services/favoriteBeer'
 import BeerCard from '@/components/BeerCard'
 import DetailBeer from '@/components/DetailBeer'
 
@@ -17,8 +18,13 @@ export default {
     },
     data () {
         return {
-            beers: this.$getAll(),
+            // beers: this.$getAll(),
             detailBeer: null
+        }
+    },
+    computed: {
+        beers () {
+            return favoriteBeerService.getAll()
         }
     },
     methods:  {
@@ -26,7 +32,7 @@ export default {
 
         }, 
         removeFavorite () {
-            this.beers = this.$getAll()
+            //this.beers = this.$getAll()
         },
         showModal (beer) {
             if(!beer.similar)

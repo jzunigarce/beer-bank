@@ -5,7 +5,7 @@
             placeholder="Search for beer name"
             class="search"
             v-model="search"
-            @keyup.native.enter="searchBeer(3)"></b-form-input>
+            @keyup.native.enter="searchBeers"></b-form-input>
         </b-col>
     </b-row>
 </template>
@@ -19,13 +19,14 @@ export default {
         }
     },
     methods: {
-        searchBeer () {
-            alert('hola')
+        searchBeers () {
+            if(this.search)
+                this.$store.dispatch('fetchBeersByName', {name: this.search})
+            else
+                this.$store.dispatch('fetchBeers', {page: 1})
         }
     }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
