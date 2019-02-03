@@ -4,14 +4,24 @@ body {
 .main-header {
     background-color: #f39301;
 }
-.main-header nav li {
+.main-header .main-menu {
+    background-color: #f39301;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+.main-header .main-menu nav li {
     padding: 0.5em
 }
-.main-header nav li a{
+.main-header .main-menu nav li a{
     color: white;
     display: inline-block;
     text-transform: uppercase;
     padding: 0
+}
+.main-header .main-menu + div {
+    margin-top: 40px;
 }
 .title h1 {
     font-weight: 800;

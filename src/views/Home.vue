@@ -7,7 +7,8 @@
 
 <script>
 // @ is an alias to /src
-import beerApi from '@/services/Beer'
+import beerService from '@/services/beer'
+import favoriteBeerService from '@/services/favoriteBeer'
 import BeerCard from '@/components/BeerCard'
 import DetailBeer from '@/components/DetailBeer'
 
@@ -19,17 +20,17 @@ export default {
     },
     data() {
         return {
+            detailBeer: null,
             beers: [],
-            detailBeer: null
         }
     },
     methods: {
-        loadBeers () {
+        fetchBeers (page) {
             let vm = this
-            beerApi.paginate(1)
+            beerService.paginate(page)
             .then(beers => {
                 this.beers = beers.map(beer => {
-                    beer.favorite = vm.$exist(beer)
+                    beer.favorite = favoriteBeerService.exist(beer)
                     return beer
                 })
             })
@@ -44,7 +45,7 @@ export default {
         }
     },
     created() {
-        this.loadBeers()
+        this.fetchBeers(1)
     }
 };
 </script>

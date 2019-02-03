@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import beerApi from '@/services/Beer'
+import favoriteBeerService from '@/services/favoriteBeer'
 
 export default {
     name: 'BeerCard',
@@ -37,9 +37,9 @@ export default {
         toggleFavorite () {
             this.beer.favorite = !this.beer.favorite
             if(this.beer.favorite)
-                this.$add(this.beer)
+                favoriteBeerService.add(this.beer)
             else {
-                this.$remove(this.beer)
+                favoriteBeerService.remove(this.beer)
                 this.$emit('removeFavorite')
             }
             this.toggleIconFavorite ()

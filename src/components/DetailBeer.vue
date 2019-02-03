@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import beerApi from '@/services/Beer'
+import beerApi from '@/services/beer'
 
 export default {
     props: ['beer'],
