@@ -1,12 +1,11 @@
 <template>
     <section class="beer-list">
-        <beer-card v-for="beer in beers" :key="beer.id" :beer="beer" @showModal="showModal" @removeFavorite="removeFavorite"></beer-card>
+        <beer-card v-for="beer in favoriteBeers" :key="beer.id" :beer="beer" @showModal="showModal"></beer-card>
          <detail-beer :beer="detailBeer"></detail-beer>
     </section>
 </template>
 
 <script>
-import favoriteBeerService from '@/services/favoriteBeer'
 import BeerCard from '@/components/BeerCard'
 import DetailBeer from '@/components/DetailBeer'
 
@@ -18,27 +17,34 @@ export default {
     },
     data () {
         return {
-            // beers: this.$getAll(),
             detailBeer: null
         }
     },
     computed: {
-        beers () {
-            return favoriteBeerService.getAll()
+        search () {
+            return this.$store.state.search
+        },
+        favoriteBeers () {
+            return this.$store.getters.getFavoriteBeers
+        }
+    },
+    watch: {
+        search (newValue) {
+            if(newValue)
+                this.$store.dispatch('fetchFavoriteBeersByName', {name: this.search})
+            else
+                this.$store.dispatch('fetchFavoriteBeers')
         }
     },
     methods:  {
-        showModal () {
-
-        }, 
-        removeFavorite () {
-            //this.beers = this.$getAll()
-        },
         showModal (beer) {
             if(!beer.similar)
                 this.$set(beer, 'similar', [])
             this.detailBeer = beer
         }
+    },
+    created () {
+        this.$store.dispatch('fetchFavoriteBeers')
     }
 }
 </script>

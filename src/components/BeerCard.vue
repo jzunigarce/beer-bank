@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import favoriteBeerService from '@/services/favoriteBeer'
 
 export default {
     name: 'BeerCard',
@@ -29,20 +28,8 @@ export default {
             favoriteIcon: ''
         }
     },
-    watch: {
-    },
-    computed: {
-
-    },
     methods: {
         toggleFavorite () {
-            /*this.beer.favorite = !this.beer.favorite
-            if(this.beer.favorite)
-                favoriteBeerService.add(this.beer)
-            else {
-                favoriteBeerService.remove(this.beer)
-                this.$emit('removeFavorite')
-            }*/
             this.$store.commit('toggleFavoriteBeer', this.beer)
             this.toggleIconFavorite ()
         },

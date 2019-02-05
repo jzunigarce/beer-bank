@@ -7,13 +7,15 @@ export default {
         .then(response => response.data)
     },
     
-    paginate (page) {
-        return axios.get(`${END_POINT}?page?${page}`)
+    paginate (data) {
+        const query = data.query ? `&${data.query}` : ''
+        return axios.get(`${END_POINT}?page=${data.page}${query}`)
         .then(response => response.data)
     },
 
-    getByName (name) {
-        return axios.get(`${END_POINT}?beer_name=${name}`)
+    getByName (data) {
+        const query = data.query ? `&${data.query}` : ''
+        return axios.get(`${END_POINT}?beer_name=${data.name}&page=${data.page}${query}`)
             .then(response => response.data)
     },
 

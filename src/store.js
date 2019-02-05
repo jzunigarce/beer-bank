@@ -19,16 +19,24 @@ export default new Vuex.Store({
         getSearch (state) {
             return state.search
         },
-        allFavoriteBeer (state) {
-            return state.favoriteBeer
+        getFavoriteBeers (state) {
+            return state.beers.filter(beer => beer.favorite)
         }
     },
     mutations: {
-        setBeers (state, beers) {
-            state.beers = beers.map(beer => {
+        setBeers (state, data) {
+            const beers = data.beers.map(beer => {
                 beer.favorite = favoriteBeerService.exist(beer)
                 return beer
             })
+            if(data.page === 1)
+                state.beers = beers
+            else {
+                state.beers = state.beers.concat(beers)
+            }
+        },
+        setFavoriteBeers (state) {
+            state.beers = favoriteBeerService.getAll()
         },
         toggleFavoriteBeer (state, beer) {
             let index = state.beers.findIndex(b => beer.id === b.id)
@@ -37,26 +45,31 @@ export default new Vuex.Store({
         },
         setSearch (state, search) {
             state.search = search
+        },
+        setFavoriteBeersByName (state, name) {
+            state.beers = state.beers.filter(beer => beer.name.toLowerCase().includes(name))
         }
     },
     actions: {
         fetchBeers (context, payload) {
-            return  beerService.paginate(payload.page)
-                .then(response => {
-                    /* this.response = response.map(beer => {
-                        beer.favorite = favoriteBeerService.exist(beer)
-                        return beer
-                    })  */
-                    context.commit('setBeers', response)
-                    return response
-                })
+            return  beerService.paginate(payload)
+            .then(response => {
+                context.commit('setBeers', { beers: response, page: payload.page })
+                return response
+            })
         },
         fetchBeersByName (context, payload) {
-            return beerService.getByName(payload.name)
-                .then(response => {
-                    context.commit('setBeers', response)
-                    return response
-                })
+            return beerService.getByName(payload)
+            .then(response => {
+                context.commit('setBeers', { beers: response, page: payload.page })
+                return response
+            })
+        },
+        fetchFavoriteBeers (context) {
+            context.commit('setFavoriteBeers')
+        },
+        fetchFavoriteBeersByName (context, payload) {
+            context.commit('setFavoriteBeersByName', payload.name)
         }
     }
 });

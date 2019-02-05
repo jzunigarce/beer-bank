@@ -144,6 +144,15 @@ body {
     color:  #8f9498;
     text-align: center;
 }
+/*
+ * Advanced search
+ */
+ .advanced-search {
+    text-align: right
+ }
+ .advanced-search a{
+    color: white;
+ }
 @media screen and (max-width: 991px) {
     .beer-list {
         grid-template-columns: repeat(2, 350px);

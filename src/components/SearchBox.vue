@@ -1,11 +1,14 @@
 <template>
-    <b-row align-h="center">
+    <b-row align-h="center" class="search-box">
         <b-col md="4">
             <b-form-input 
             placeholder="Search for beer name"
             class="search"
             v-model="search"
             @keyup.native.enter="searchBeers"></b-form-input>
+            <p class="advanced-search">
+                <router-link to='/advanced-search'>Advanced Search</router-link>
+            </p>
         </b-col>
     </b-row>
 </template>
@@ -15,15 +18,17 @@ export default {
     name: 'SearchBox',
     data() {
         return {
-            search: ''
+            search: '',
+        }
+    },
+    watch: {
+        '$route' () {
+            this.search = ''
         }
     },
     methods: {
         searchBeers () {
-            if(this.search)
-                this.$store.dispatch('fetchBeersByName', {name: this.search})
-            else
-                this.$store.dispatch('fetchBeers', {page: 1})
+            this.$store.commit('setSearch', this.search.replace(/\s/g, ''))
         }
     }
 }
